@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <script type = 'text/javascript' src = 'static/js/script.js'></script>
+
+    <link rel = 'stylesheet' href = 'static/css/style.css'>
+
+    <link rel = 'apple-touch-icon' href = 'static/assets/logo.png'>
+    <link rel = 'icon' href = 'static/assets/logo.png'>
+
+    <link rel = 'apple-touch-startup-image' href = 'logo.png'>
+
+    <meta name = 'apple-mobile-web-app-capable' content = 'yes'>
+
+    <title>
+      Razor-iOS
+    </title>
+
+  </head>
+
+  <body>
+
+    <h1>No CSS yet, but it just works:TM:</h1>
+
+    <form action = '/'>
+      <label for = 'id'>ID:</label>
+      <br>
+      <input type = 'text' id = 'id' name = 'id' value = ''>
+      <input type = 'submit' value = 'Load'>
+    </form>
+
+    <div
+      id = 'embed'
+    >
+    </div>
+
+    <script type = 'text/javascript'> // https://developers.google.com/youtube/player_parameters
+    var tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/player_api';
+    var first = document.getElementsByTagName('script')[0];
+    first.parentNode.insertBefore(tag, first);
+
+    var player;
+    function onYouTubePlayerAPIReady() {
+      player = new YT.Player('embed', {
+        height: '360',
+        width: '640',
+        videoId: VID_ID,
+        events: {
+          'onReady': onReady,
+          'onStateChange': onStateChange
+        }
+      });
+    }
+    function onReady(event) {
+      document.title = event.target.videoTitle;
+      //event.target.playVideo();
+    }
+    function onStateChange(event) {
+      if (event.data == YT.PlayerState.ENDED) {
+        console.log(`Looped '${event.target.videoTitle}'.`);
+        event.target.seekTo(0, true);
+        event.target.playVideo();
+      }
+    }
+    </script>
+
+  </body>
+
+</html>
